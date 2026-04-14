@@ -244,7 +244,7 @@ CREATE TABLE KnowledgeDocuments (
 -- STOP WORDS
 -- =========================
 CREATE TABLE KnowledgeStopWords (
-    Word NVARCHAR2(40),
+    Word VARCHAR2(40),
 
     CONSTRAINT PK_KnowledgeStopWords PRIMARY KEY (Word)
 );
@@ -267,9 +267,3 @@ CREATE INDEX IX_KnowledgeVectorIndex_Dimension ON KnowledgeVectorIndex(Dimension
 CREATE INDEX IX_AdminActivityLog_OccurredAt ON AdminActivityLog(OccurredAt DESC, AdminUserId, ActivityType, EntityType);
 CREATE INDEX IX_IncidentReports_Status ON IncidentReports(Status, ReportedAt DESC, CountyId, ResponseLocationId);
 CREATE INDEX IX_LicenseApplications_Status ON LicenseApplications(Status, SubmittedAt DESC, LicenseServiceId, ProjectCountyId);
-
-INSERT INTO KnowledgeStopWords (Word)
-VALUES
-('a'), ('an'), ('and'), ('are'), ('as'), ('at'), ('be'), ('by'),
-('for'), ('from'), ('has'), ('in'), ('is'), ('it'), ('of'), ('on'),
-('or'), ('that'), ('the'), ('their'), ('this'), ('to'), ('with');
