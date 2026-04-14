@@ -257,7 +257,19 @@ CREATE TABLE KnowledgeVectorIndex (
     DimensionNumber NUMBER NOT NULL,
     DimensionValue FLOAT NOT NULL,
 
-    CONSTRAINT PK_KnowledgeVectorIndex PRIMARY KEY (DocumentId, DimensionNumber),
+    CONSTRAINT PK_KnowledgeVectorIndex
+        PRIMARY KEY (DocumentId, DimensionNumber),
     CONSTRAINT FK_KnowledgeVectorIndex_Doc 
         FOREIGN KEY (DocumentId) REFERENCES KnowledgeDocuments(DocumentId)
-);
+); 
+CREATE INDEX IX_KnowledgeDocuments_Category ON KnowledgeDocuments(Category, CountyId);
+CREATE INDEX IX_KnowledgeVectorIndex_Dimension ON KnowledgeVectorIndex(DimensionNumber, DocumentId, DimensionValue);
+CREATE INDEX IX_AdminActivityLog_OccurredAt ON AdminActivityLog(OccurredAt DESC, AdminUserId, ActivityType, EntityType);
+CREATE INDEX IX_IncidentReports_Status ON IncidentReports(Status, ReportedAt DESC, CountyId, ResponseLocationId);
+CREATE INDEX IX_LicenseApplications_Status ON LicenseApplications(Status, SubmittedAt DESC, LicenseServiceId, ProjectCountyId);
+
+INSERT INTO KnowledgeStopWords (Word)
+VALUES
+('a'), ('an'), ('and'), ('are'), ('as'), ('at'), ('be'), ('by'),
+('for'), ('from'), ('has'), ('in'), ('is'), ('it'), ('of'), ('on'),
+('or'), ('that'), ('the'), ('their'), ('this'), ('to'), ('with');
